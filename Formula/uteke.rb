@@ -9,7 +9,8 @@ class Uteke < Formula
       url "https://github.com/codecoradev/uteke/releases/download/v0.19.0/uteke-aarch64-apple-darwin-v0.19.0.tar.gz"
       sha256 "c9b1512a5d8518660ea68b1d5b78da7dd0734d78419a59318dc075d6d7270149"
     else
-      raise "uteke v0.19.0 ships no macOS Intel prebuilt (ort-sys provides none). Build from source: cargo install uteke-cli"
+      # No macOS Intel prebuilt exists (ort-sys provides none).
+      raise "uteke v0.19.0: no macOS Intel prebuilt; build from source (cargo install uteke-cli)"
     end
   end
 

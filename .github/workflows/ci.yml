@@ -49,6 +49,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ensure Homebrew on PATH
+        run: |
+          BREW_DIR="/home/linuxbrew/.linuxbrew"
+          if [ ! -x "$BREW_DIR/bin/brew" ]; then
+            sudo mkdir -p "$BREW_DIR" && sudo chown -R "$(whoami)" "$BREW_DIR"
+            git clone --depth=1 https://github.com/Homebrew/brew "$BREW_DIR/Homebrew"
+            mkdir -p "$BREW_DIR/bin" && ln -sf ../Homebrew/bin/brew "$BREW_DIR/bin/brew"
+          fi
+          echo "$BREW_DIR/bin" >> "$GITHUB_PATH"
+
       - name: Update Homebrew
         run: brew update
 

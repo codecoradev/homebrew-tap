@@ -23,7 +23,8 @@ TEMPLATE = """class Uteke < Formula
       url "https://github.com/codecoradev/uteke/releases/download/v{version}/uteke-aarch64-apple-darwin-v{version}.tar.gz"
       sha256 "{mac_arm}"
     else
-      raise "uteke v{version} ships no macOS Intel prebuilt (ort-sys provides none). Build from source: cargo install uteke-cli"
+      # No macOS Intel prebuilt exists (ort-sys provides none).
+      raise "uteke v{version}: no macOS Intel prebuilt; build from source (cargo install uteke-cli)"
     end
   end
 
