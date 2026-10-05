@@ -8,43 +8,55 @@ on:
 
 jobs:
   audit:
-    name: brew audit
+    name: brew audit (macOS)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure Homebrew
-        run: echo "HOMEBREW_NO_INSTALL_FROM_API=1" >> "$GITHUB_ENV"
+      - name: Update Homebrew
+        run: brew update
+
+      - name: Tap this repository
+        run: brew tap codecoradev/tap "${{ github.workspace }}"
+
+      - name: Style check
+        run: brew style codecoradev/tap/uteke
 
       - name: Audit formula
-        run: brew audit --strict --formula Formula/uteke.rb
+        run: brew audit --strict --formula codecoradev/tap/uteke
 
   test-macos:
-    name: brew test (macOS ARM)
+    name: brew install + test (macOS ARM)
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure Homebrew
-        run: echo "HOMEBREW_NO_INSTALL_FROM_API=1" >> "$GITHUB_ENV"
+      - name: Update Homebrew
+        run: brew update
+
+      - name: Tap this repository
+        run: brew tap codecoradev/tap "${{ github.workspace }}"
 
       - name: Install formula
-        run: brew install --formula Formula/uteke.rb
+        run: brew install codecoradev/tap/uteke
 
       - name: Test formula
-        run: brew test uteke
+        run: brew test --verbose codecoradev/tap/uteke
 
   test-linux:
-    name: brew test (Linux x86_64)
+    name: brew install + test (Linux x86_64)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configure Homebrew
-        run: echo "HOMEBREW_NO_INSTALL_FROM_API=1" >> "$GITHUB_ENV"
+      - name: Update Homebrew
+        run: brew update
+
+      - name: Tap this repository
+        run: brew tap codecoradev/tap "${{ github.workspace }}"
 
       - name: Install formula
-        run: brew install --formula Formula/uteke.rb
+        run: brew install codecoradev/tap/uteke
 
       - name: Test formula
-        run: brew test uteke
+        run: brew test --verbose codecoradev/tap/uteke
