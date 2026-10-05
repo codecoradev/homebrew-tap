@@ -15,7 +15,6 @@ import sys
 TEMPLATE = """class Uteke < Formula
   desc "Persistent memory engine for AI agents (offline, MCP-ready)"
   homepage "https://uteke.app"
-  version "{version}"
   license "Apache-2.0"
 
   on_macos do
