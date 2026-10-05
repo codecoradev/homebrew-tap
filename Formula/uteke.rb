@@ -5,23 +5,23 @@ class Uteke < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/codecoradev/uteke/releases/download/v0.19.0/uteke-aarch64-apple-darwin-v0.19.0.tar.gz"
-      sha256 "c9b1512a5d8518660ea68b1d5b78da7dd0734d78419a59318dc075d6d7270149"
+      url "https://github.com/codecoradev/uteke/releases/download/v0.19.1/uteke-aarch64-apple-darwin-v0.19.1.tar.gz"
+      sha256 "d2a754a13b1c72c395bfaa67fa9838ea014acec8516e8160534c908dbcd7bdc0"
     else
       # No macOS Intel prebuilt exists (ort-sys provides none).
-      raise "uteke v0.19.0: no macOS Intel prebuilt; build from source (cargo install uteke-cli)"
+      raise "uteke v0.19.1: no macOS Intel prebuilt; build from source (cargo install uteke-cli)"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/codecoradev/uteke/releases/download/v0.19.0/uteke-aarch64-unknown-linux-gnu-v0.19.0.tar.gz"
-      sha256 "8975ba3d279a5bcc7f4f48284f807c8999fc5b65b294fd1410435f903330d1cf"
+      url "https://github.com/codecoradev/uteke/releases/download/v0.19.1/uteke-aarch64-unknown-linux-gnu-v0.19.1.tar.gz"
+      sha256 "72d67e6dd1dc626caf9d855abf698926785a329693221776dc15222f22d22a4c"
     elsif Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/codecoradev/uteke/releases/download/v0.19.0/uteke-x86_64-unknown-linux-gnu-v0.19.0.tar.gz"
-      sha256 "fb3c2cc1a69293c1897e67c345eb8d64cebcacc28561cc197bd227d83a010b44"
+      url "https://github.com/codecoradev/uteke/releases/download/v0.19.1/uteke-x86_64-unknown-linux-gnu-v0.19.1.tar.gz"
+      sha256 "0f40c3e4a140314aaeb3704d4c84a06ac05561835579716e790c0d9360aeb40f"
     else
-      raise "uteke v0.19.0: unsupported architecture"
+      raise "uteke v0.19.1: unsupported architecture"
     end
   end
 
