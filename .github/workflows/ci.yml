@@ -11,7 +11,7 @@ jobs:
     name: brew audit (macOS)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Update Homebrew
         run: brew update
@@ -29,7 +29,7 @@ jobs:
     name: brew install + test (macOS ARM)
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Update Homebrew
         run: brew update
@@ -47,7 +47,7 @@ jobs:
     name: brew install + test (Linux x86_64)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Ensure Homebrew on PATH
         run: |
