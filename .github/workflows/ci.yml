@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: brew audit
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Homebrew
+        run: echo "HOMEBREW_NO_INSTALL_FROM_API=1" >> "$GITHUB_ENV"
+
+      - name: Audit formula
+        run: brew audit --strict --formula Formula/uteke.rb
+
+  test-macos:
+    name: brew test (macOS ARM)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Homebrew
+        run: echo "HOMEBREW_NO_INSTALL_FROM_API=1" >> "$GITHUB_ENV"
+
+      - name: Install formula
+        run: brew install --formula Formula/uteke.rb
+
+      - name: Test formula
+        run: brew test uteke
+
+  test-linux:
+    name: brew test (Linux x86_64)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Homebrew
+        run: echo "HOMEBREW_NO_INSTALL_FROM_API=1" >> "$GITHUB_ENV"
+
+      - name: Install formula
+        run: brew install --formula Formula/uteke.rb
+
+      - name: Test formula
+        run: brew test uteke
