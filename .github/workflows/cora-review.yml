@@ -33,3 +33,7 @@ jobs:
           cora-api-key: ${{ secrets.CORA_API_KEY }}
           cora-base-url: ${{ secrets.CORA_BASE_URL }}
           cora-model: ${{ secrets.CORA_MODEL }}
+          # The action defaults to origin/develop, which does not exist in this repo
+          # (only `main`): `git diff origin/develop...HEAD` fails, Cora writes no
+          # SARIF and the PR gets "empty result". Diff against the PR's real base.
+          base-branch: origin/${{ github.base_ref }}
