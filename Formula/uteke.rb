@@ -1,4 +1,5 @@
 class Uteke < Formula
+  # probe comment (throwaway PR, do not merge)
   desc "Persistent memory engine for AI agents (offline, MCP-ready)"
   homepage "https://uteke.app"
   license "Apache-2.0"
