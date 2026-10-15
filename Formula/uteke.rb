@@ -29,10 +29,13 @@ class Uteke < Formula
     # Release tarballs ship libonnxruntime next to the binaries; uteke loads it
     # from its own directory or $ORT_LIB_PATH (see INSTALL.md). Keep them
     # together in libexec and export ORT_LIB_PATH via the bin shims.
+    # ORT_LIB_PATH must name the library FILE: uteke dlopens exactly that path,
+    # so pointing it at the directory leaves every install without embeddings.
     %w[uteke uteke-serve uteke-mcp].each { |b| libexec.install b }
     libexec.install Dir["libonnxruntime*"]
+    ort_lib = libexec/(OS.mac? ? "libonnxruntime.dylib" : "libonnxruntime.so")
     %w[uteke uteke-serve uteke-mcp].each do |b|
-      (bin/b).write_env_script(libexec/b, ORT_LIB_PATH: libexec)
+      (bin/b).write_env_script(libexec/b, ORT_LIB_PATH: ort_lib)
     end
   end
 
@@ -49,5 +52,13 @@ class Uteke < Formula
   test do
     assert_match version.to_s, shell_output("#{bin}/uteke --version")
     assert_match "memory", shell_output("#{bin}/uteke --help")
+
+    # The shims must point ORT_LIB_PATH at an existing library file, not a
+    # directory; otherwise uteke silently stores memories without embeddings.
+    %w[uteke uteke-serve uteke-mcp].each do |b|
+      ort_lib = (bin/b).read[/ORT_LIB_PATH="([^"]+)"/, 1]
+      refute_nil ort_lib, "#{b} shim does not set ORT_LIB_PATH"
+      assert_predicate Pathname(ort_lib), :file?, "#{b}: ORT_LIB_PATH is not a file: #{ort_lib}"
+    end
   end
 end
