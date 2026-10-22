@@ -33,4 +33,3 @@ brew install codecoradev/tap/uteke && brew test codecoradev/tap/uteke
 - Branches: `fix/...`, `feat/...`, `docs/...`, `chore/...`, `ci/...`
 - Commit messages & PR titles: [Conventional Commits](https://www.conventionalcommits.org/)
 - PRs require a filled template (What / Why / Testing)
-- External contributors must sign the [CodeCoraDev CLA](https://codecoradev.github.io/cla/) — CI checks this automatically
