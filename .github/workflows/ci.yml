@@ -19,6 +19,11 @@ jobs:
       - name: Tap this repository
         run: brew tap codecoradev/tap "${{ github.workspace }}"
 
+      # Current Homebrew refuses to load a formula from a tap it has not been
+      # told to trust, so the audit below would stop before reading the formula.
+      - name: Trust this tap
+        run: brew trust codecoradev/tap
+
       - name: Style check
         run: brew style codecoradev/tap/uteke
 
