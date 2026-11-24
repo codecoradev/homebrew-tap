@@ -18,7 +18,7 @@ jobs:
   cora-review:
     name: Cora Review
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 40
     steps:
       - name: Checkout PR head
         uses: actions/checkout@v7
@@ -37,3 +37,6 @@ jobs:
           # (only `main`): `git diff origin/develop...HEAD` fails, Cora writes no
           # SARIF and the PR gets "empty result". Diff against the PR's real base.
           base-branch: origin/${{ github.base_ref }}
+
+          review-timeout-seconds: ${{ vars.CORA_REVIEW_TIMEOUT_SECONDS || secrets.CORA_REVIEW_TIMEOUT_SECONDS || '900' }}
+          max-attempts: ${{ vars.CORA_MAX_ATTEMPTS || secrets.CORA_MAX_ATTEMPTS || '2' }}
